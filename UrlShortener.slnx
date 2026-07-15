@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/UrlShortener.Abstractions/UrlShortener.Abstractions.csproj" Id="0850892e-93b0-4fc7-9ee6-31f58e103ddd" />
+    <Project Path="src/UrlShortener.API/UrlShortener.API.csproj" />
+    <Project Path="src/UrlShortener.Domain/UrlShortener.Domain.csproj" />
+    <Project Path="src/UrlShortener.Infrastructure/UrlShortener.Infrastructure.csproj" />
+  </Folder>
+</Solution>

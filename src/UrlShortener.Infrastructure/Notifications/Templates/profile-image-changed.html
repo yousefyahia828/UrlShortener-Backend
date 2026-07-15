@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Image Updated</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f3f6fb;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #374151;
+            padding: 40px 16px;
+        }
+
+        .wrapper {
+            max-width: 560px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg,#3b82f6,#2563eb);
+            padding: 42px 32px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            color: rgba(255,255,255,.85);
+            font-size: 14px;
+            letter-spacing: .5px;
+        }
+
+        .body {
+            padding: 42px 36px;
+            text-align: center;
+        }
+
+        .icon-wrap {
+            width: 70px;
+            height: 70px;
+            line-height: 70px;
+            margin: 0 auto 24px;
+            background: #eff6ff;
+            border-radius: 50%;
+            font-size: 34px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #111827;
+            margin-bottom: 18px;
+        }
+
+        p {
+            color: #6b7280;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 32px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #2563eb;
+            color: #fff !important;
+            text-decoration: none;
+            padding: 15px 36px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .features {
+            margin: 36px 0;
+        }
+
+        .chip {
+            display: inline-block;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            color: #374151;
+            border-radius: 20px;
+            padding: 8px 14px;
+            margin: 4px;
+            font-size: 13px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #e5e7eb;
+            margin: 32px 0;
+        }
+
+        .footer {
+            background: #111827;
+            padding: 24px;
+            text-align: center;
+        }
+
+            .footer p {
+                margin: 0;
+                color: #9ca3af;
+                font-size: 12px;
+                line-height: 1.7;
+            }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <div class="header">
+            <div class="logo">🖼️ UrlShortener</div>
+            <div class="tagline">
+                Profile Updated
+            </div>
+        </div>
+
+        <div class="body">
+
+            <div class="icon-wrap">
+                📸
+            </div>
+
+            <p style="margin-bottom:8px;font-size:18px;font-weight:bold;color:#111827;">
+                Hi, {{USER_NAME}}! 👋
+            </p>
+
+            <h1>Profile Image Updated</h1>
+
+            <p>
+                Your profile picture has been successfully updated.
+                <br><br>
+                This new image will now appear across your account and anywhere your
+                profile is displayed.
+            </p>
+
+            <!--<a href="{{PROFILE_LINK}}" class="btn">
+                View Profile
+            </a>-->
+
+            <div class="features">
+                <span class="chip">📸 New Profile Photo</span>
+                <span class="chip">🔒 Account Secure</span>
+                <span class="chip">✨ Changes Saved</span>
+            </div>
+
+            <hr class="divider">
+
+            <p style="margin-bottom:0;">
+                If you didn't make this change, please secure your account immediately
+                by changing your password and contacting our support team.
+            </p>
+
+        </div>
+
+        <div class="footer">
+            <p>
+                © 2026 UrlShortener. All rights reserved.
+                <br>
+                Keeping your account secure is our priority ❤️
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>

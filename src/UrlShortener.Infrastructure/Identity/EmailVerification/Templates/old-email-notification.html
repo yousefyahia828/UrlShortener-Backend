@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Email Address Has Been Changed</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f3f6fb;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #374151;
+            padding: 40px 16px;
+        }
+
+        .wrapper {
+            max-width: 560px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
+            padding: 42px 32px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            color: rgba(255,255,255,.85);
+            font-size: 14px;
+            letter-spacing: .5px;
+        }
+
+        .body {
+            padding: 42px 36px;
+            text-align: center;
+        }
+
+        .icon-wrap {
+            width: 70px;
+            height: 70px;
+            line-height: 70px;
+            margin: 0 auto 24px;
+            background: #fff7ed;
+            border-radius: 50%;
+            font-size: 32px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #111827;
+            margin-bottom: 18px;
+        }
+
+        p {
+            color: #6b7280;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .notice {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 12px;
+            padding: 18px;
+            margin: 28px 0;
+            text-align: left;
+        }
+
+        .notice-title {
+            font-weight: bold;
+            color: #b91c1c;
+            margin-bottom: 8px;
+        }
+
+        .notice p {
+            margin: 0;
+            color: #7f1d1d;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #e5e7eb;
+            margin: 32px 0;
+        }
+
+        .footer {
+            background: #111827;
+            padding: 24px;
+            text-align: center;
+        }
+
+            .footer p {
+                margin: 0;
+                color: #9ca3af;
+                font-size: 12px;
+                line-height: 1.7;
+            }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <div class="header">
+            <div class="logo">🔗 UrlShortener</div>
+            <div class="tagline">
+                Fast • Secure • Smart Links
+            </div>
+        </div>
+
+        <div class="body">
+
+            <div class="icon-wrap">
+                📧
+            </div>
+
+            <p style="margin-bottom:8px;font-size:18px;font-weight:bold;color:#111827;">
+                Hello, {{USER_NAME}} 👋
+            </p>
+
+            <h1>Your Email Address Has Been Changed</h1>
+
+            <p>
+                The email address associated with your
+                <strong>UrlShortener</strong> account has been changed.
+            </p>
+
+            <div class="notice">
+                <div class="notice-title">
+                    Important
+                </div>
+
+                <p>
+                    This email address is no longer associated with your
+                    UrlShortener account.
+                    <br><br>
+                    From now on, you must use your new email address to sign in
+                    and receive account notifications.
+                </p>
+            </div>
+
+            <hr class="divider">
+
+            <p style="margin-bottom:0;">
+                If you made this change, no further action is required.
+            </p>
+
+        </div>
+
+        <div class="footer">
+            <p>
+                © 2026 UrlShortener. All rights reserved.
+                <br>
+                This is an automated notification regarding your account.
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>

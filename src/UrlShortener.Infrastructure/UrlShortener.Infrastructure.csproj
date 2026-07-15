@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<NoWarn>CA1873</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Identity\EmailVerification\Templates\new-email-linked-notification.html" />
+    <None Remove="Identity\EmailVerification\Templates\old-email-notification.html" />
+    <None Remove="Identity\Password\Templates\password-changed-template.html" />
+    <None Remove="Identity\Password\Templates\password-reset-template.html" />
+    <None Remove="Notifications\Templates\profile-image-changed.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Identity\EmailVerification\Templates\email-change-confirmation.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Identity\EmailVerification\Templates\account-activated-template.html" />
+    <EmbeddedResource Include="Identity\EmailVerification\Templates\account-activation-template.html">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Identity\EmailVerification\Templates\new-email-linked-notification.html" />
+    <EmbeddedResource Include="Identity\EmailVerification\Templates\old-email-notification.html" />
+    <EmbeddedResource Include="Identity\Password\Templates\password-changed-template.html" />
+    <EmbeddedResource Include="Identity\Password\Templates\password-reset-template.html" />
+    <EmbeddedResource Include="Notifications\Templates\profile-image-changed.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
+    <PackageReference Include="Dapper" Version="2.1.79" />
+    <PackageReference Include="EFCore.NamingConventions" Version="10.0.1" />
+    <PackageReference Include="FluentEmail.Smtp" Version="3.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.2" />
+    <PackageReference Include="Quartz" Version="3.18.2" />
+    <PackageReference Include="Quartz.AspNetCore" Version="3.18.2" />
+    <PackageReference Include="Quartz.Extensions.Hosting" Version="3.18.2" />
+    <PackageReference Include="Quartz.Serialization.Json" Version="3.18.2" />
+    <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UrlShortener.Abstractions\UrlShortener.Abstractions.csproj" />
+    <ProjectReference Include="..\UrlShortener.Domain\UrlShortener.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
