@@ -34,6 +34,7 @@ public sealed class ShortenUrl : Entity<Guid>, IAuditableEntity
             Code = code,
             Enabled = true,
             Description = description,
+            CreatedOnUtc = DateTime.UtcNow
         };
 
         shortenUrl.Raise(new ShortenUrlCreatedDomainEvent(shortenUrl.Id, userId, code));
