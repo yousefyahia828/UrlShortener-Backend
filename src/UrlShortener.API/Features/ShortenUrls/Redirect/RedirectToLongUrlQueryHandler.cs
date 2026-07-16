@@ -25,7 +25,6 @@ internal sealed class RedirectToLongUrlQueryHandler(
                 return context.ShortenUrls
                     .AsNoTracking()
                     .Where(url => url.Code == query.Code)
-                    .Where(url => url.Enabled)
                     .Select(url => new UrlResponse(url.LongUrl, url.Enabled))
                     .FirstOrDefaultAsync(cancellationToken);
             });
