@@ -1,6 +1,7 @@
-﻿using Josephan.CQRS;
+﻿using Microsoft.Extensions.Options;
 using UrlShortener.API.Common.Abstractions.Presentation;
-using UrlShortener.API.Common.Inftrastructure;
+using UrlShortener.Domain.ShortenUrls;
+using UrlShortener.Infrastructure;
 
 namespace UrlShortener.API.Features.ShortenUrls.Redirect;
 
@@ -12,13 +13,23 @@ public sealed class Endpoint : IEndpoint
     {
         app.MapGet("urls/{code}", async (
             string code,
-            ISender sender) =>
+            ISender sender,
+            IOptions<AppOptions> options) =>
         {
             var result = await sender.Send(new RedirectToLongUrlQuery(code));
 
-            return result.Match(
-                longUrl => Results.Redirect(longUrl, permanent: false),
-                CustomResults.Problem);
+            // certain errors
+            if (result.IsFailure)
+            {
+                var error = result.Errors.First();
+
+                var reason = error == UrlErrors.NotFound ? "notfound" : "disabled";
+
+                return Results.Redirect(
+                    options.Value.FrontendUrl + $"/not-found.html?reason={reason}");
+            }
+
+            return Results.Redirect(result.Value);
         })
         .WithName(RouteName)
         .WithTags(Tags.Urls)

@@ -5,6 +5,8 @@ using UrlShortener.Domain.ShortenUrls;
 
 namespace UrlShortener.API.Features.ShortenUrls.Redirect;
 
+internal sealed record UrlResponse(string LongUrl, bool Enabled);
+
 internal sealed class RedirectToLongUrlQueryHandler(
     IApplicationDbContext context,
     IMemoryCache cache)
@@ -14,7 +16,7 @@ internal sealed class RedirectToLongUrlQueryHandler(
         RedirectToLongUrlQuery query,
         CancellationToken cancellationToken)
     {
-        string? longUrl = await cache.GetOrCreateAsync(
+        var urlResponse = await cache.GetOrCreateAsync(
             $"shorten:{query.Code}",
             entry =>
             {
@@ -24,10 +26,12 @@ internal sealed class RedirectToLongUrlQueryHandler(
                     .AsNoTracking()
                     .Where(url => url.Code == query.Code)
                     .Where(url => url.Enabled)
-                    .Select(url => url.LongUrl)
+                    .Select(url => new UrlResponse(url.LongUrl, url.Enabled))
                     .FirstOrDefaultAsync(cancellationToken);
             });
 
-        return longUrl is null ? UrlErrors.NotFound : longUrl;
+        return urlResponse is null ? UrlErrors.NotFound :
+            !urlResponse.Enabled ? UrlErrors.Disabled :
+            urlResponse.LongUrl;
     }
 }

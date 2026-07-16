@@ -11,6 +11,10 @@ public static class UrlErrors
         "Url.NotFound",
         "No URL was found for the given code.");
 
+    public static readonly Error Disabled = Error.NotFound(
+        "Url.Disabled",
+        "Url is disabled buy its owner");
+
     public static readonly Error AlreadyEnabled = Error.Conflict(
         "Url.AlreadyEnabled",
         "Url is enabled already");
