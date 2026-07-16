@@ -61,7 +61,8 @@ app.UseCors(cfg =>
        .AllowAnyMethod()
        .WithOrigins(
             "http://127.0.0.1:5500",
-            "https://localhost:5500")
+            "https://localhost:5500",
+            "https://url-shortener-frontend-nu-beryl.vercel.app")
        .AllowCredentials()
        .SetPreflightMaxAge(TimeSpan.FromHours(1));
 });
