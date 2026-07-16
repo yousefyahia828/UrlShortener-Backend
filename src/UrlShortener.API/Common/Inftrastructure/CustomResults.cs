@@ -1,6 +1,4 @@
-﻿using Josephan.CQRS;
-
-namespace UrlShortener.API.Common.Inftrastructure;
+﻿namespace UrlShortener.API.Common.Inftrastructure;
 
 public sealed record ErrorResponse(string Code, string? Field, string Description);
 

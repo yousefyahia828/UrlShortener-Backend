@@ -1,5 +1,4 @@
-﻿using Josephan.CQRS;
-using UrlShortener.API.Common.Abstractions.Presentation;
+﻿using UrlShortener.API.Common.Abstractions.Presentation;
 using UrlShortener.API.Common.Inftrastructure;
 using UrlShortener.Domain.Users;
 
@@ -18,6 +17,7 @@ public sealed class Endpoint : IEndpoint
                 .BindAsync(cmd => sender.Send(cmd))
                 .MatchAsync(Results.NoContent, CustomResults.Problem);
         })
+        .WithTags(Tags.Users)
         .WithSummary("Cancel a pending email change request.")
         .WithDescription("Cancels the authenticated user's pending email change request.")
         .Produces(StatusCodes.Status204NoContent)

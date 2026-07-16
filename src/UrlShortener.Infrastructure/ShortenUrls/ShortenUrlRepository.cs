@@ -26,6 +26,6 @@ internal sealed class ShortenUrlRepository(
             ],
             cancellationToken);
 
-        return affectedRows > 0; // Actually 1
+        return affectedRows > 0; // Actually 1 or zero on failure
     }
 }

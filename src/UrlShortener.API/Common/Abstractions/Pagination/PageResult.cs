@@ -19,7 +19,6 @@ public sealed class PageResult<T>
     public bool HasNext => Page * PageSize < TotalCount;
     public bool HasPrevious => Page > 1;
 
-
     public static async Task<PageResult<T>> CreateAsync(
         IQueryable<T> query,
         int? page,

@@ -1,5 +1,5 @@
-﻿using Josephan.CQRS;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
+using UrlShortener.Domain.Primitives;
 using UrlShortener.Domain.Users.Events;
 using UrlShortener.Infrastructure.Hubs;
 
@@ -7,7 +7,7 @@ namespace UrlShortener.Infrastructure.Users.Events;
 
 internal sealed class UserEmailChangedDomainEventHandler(
     IHubContext<EmailNotificationHub> hubContext)
-    : INotificationHandler<UserEmailChangedDomainEvent>
+    : IDomainEventHandler<UserEmailChangedDomainEvent>
 {
     public async Task Handle(
         UserEmailChangedDomainEvent notification,

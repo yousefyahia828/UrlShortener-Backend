@@ -52,7 +52,7 @@ public static class DependencyInjection
 
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
+            options.UseNpgsql(configuration.GetConnectionString("Local"))
                    .AddInterceptors(
                         sp.GetRequiredService<ConvertDomainEventsToOutboxMessagesInterceptor>(),
                         sp.GetRequiredService<AuditInterceptor>())
@@ -96,7 +96,7 @@ public static class DependencyInjection
 
         services.AddScoped<IDbConnection>(sp =>
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var connectionString = configuration.GetConnectionString("Local");
 
             var connection = new NpgsqlConnection(connectionString);
 

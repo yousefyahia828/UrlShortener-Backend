@@ -15,23 +15,19 @@ internal sealed class RegisterUserCommandHandler(
         RegisterUserCommand command,
         CancellationToken cancellationToken)
     {
-        if (await dbContext.Users.AnyAsync(
-            u => u.Email == command.Email, cancellationToken))
-        {
-            return UserErrors.EmailNotUnique;
-        }
-
-        var user = User.Register(
-            Guid.CreateVersion7(),
-            command.FirstName,
-            command.LastName,
-            command.Email,
-            passwordHasher.HashPassword(command.Password),
-            DefaultImageUrl);
-
-        await dbContext.Users.AddAsync(user, cancellationToken);
-        await dbContext.SaveChangesAsync(cancellationToken);
-
-        return user.Id;
+        return await Result
+            .From(dbContext.Users.AnyAsync(
+                u => u.Email == command.Email,
+                cancellationToken))
+            .EnsureFalseAsync(UserErrors.EmailNotUnique)
+            .MapAsync(_ => User.Register(
+                 command.FirstName,
+                 command.LastName,
+                 command.Email,
+                 passwordHasher.HashPassword(command.Password),
+                 DefaultImageUrl))
+            .TapAsync(async user => await dbContext.Users.AddAsync(user, cancellationToken))
+            .TapAsync(_ => dbContext.SaveChangesAsync(cancellationToken))
+            .MapAsync(user => user.Id);
     }
 }

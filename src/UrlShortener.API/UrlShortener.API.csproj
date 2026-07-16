@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\Users\Shared\**" />
+    <Content Remove="Features\Users\Shared\**" />
+    <EmbeddedResource Remove="Features\Users\Shared\**" />
+    <None Remove="Features\Users\Shared\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.9">
@@ -27,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Users\Shared\" />
+    <Folder Include="logs\" />
   </ItemGroup>
 
 </Project>

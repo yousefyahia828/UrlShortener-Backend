@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-using Josephan.CQRS;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -68,7 +66,7 @@ internal sealed class ValidationBehavior<TRequest, TResponse>
     private static Func<Error[], Result> GetOrCreateFailure()
     {
         return _failureFactories.GetOrAdd(typeof(TRequest),
-            static type =>
+            static _ =>
             {
                 if (typeof(TResponse) == typeof(Result))
                 {

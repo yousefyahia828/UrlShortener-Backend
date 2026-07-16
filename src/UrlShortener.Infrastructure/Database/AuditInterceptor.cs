@@ -20,10 +20,12 @@ internal sealed class AuditInterceptor : SaveChangesInterceptor
                 .Where(e => e.State == EntityState.Added)
                 .ToArray();
 
+            var utcNow = DateTime.UtcNow;
+            var propertyName = nameof(IAuditableEntity.CreatedOnUtc);
+
             foreach (var entity in entities)
             {
-                entity.Property(nameof(IAuditableEntity.CreatedOnUtc))
-                    .CurrentValue = DateTime.UtcNow;
+                entity.Property(propertyName).CurrentValue = utcNow;
             }
         }
 

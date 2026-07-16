@@ -1,5 +1,4 @@
-﻿using Josephan.CQRS;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using UrlShortener.Abstractions.Persistence;
 using UrlShortener.Domain.ShortenUrls;
@@ -29,8 +28,6 @@ internal sealed class RedirectToLongUrlQueryHandler(
                     .FirstOrDefaultAsync(cancellationToken);
             });
 
-        return longUrl is null
-            ? UrlErrors.NotFound
-            : longUrl;
+        return longUrl is null ? UrlErrors.NotFound : longUrl;
     }
 }

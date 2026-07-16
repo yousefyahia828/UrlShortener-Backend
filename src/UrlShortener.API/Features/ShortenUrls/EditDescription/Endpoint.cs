@@ -1,5 +1,4 @@
-﻿using Josephan.CQRS;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using UrlShortener.API.Common.Abstractions.Presentation;
 using UrlShortener.API.Common.Inftrastructure;
 using UrlShortener.Domain.Users;
@@ -25,6 +24,7 @@ public sealed class Endpoint : IEndpoint
                     request.Description)))
                 .Match(Results.NoContent, CustomResults.Problem);
         })
+        .WithTags(Tags.Urls)
         .RequireAuthorization()
         .RequireRateLimiting("fixed");
     }

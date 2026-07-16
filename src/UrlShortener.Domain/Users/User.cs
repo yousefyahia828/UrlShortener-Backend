@@ -26,7 +26,6 @@ public sealed class User : Entity<Guid>, IAuditableEntity
     public ICollection<ShortenUrl> ShortenUrls { get; private set; } = null!;
 
     public static User Register(
-        Guid id,
         string firstName,
         string lastName,
         string email,
@@ -35,7 +34,7 @@ public sealed class User : Entity<Guid>, IAuditableEntity
     {
         var user = new User
         {
-            Id = id,
+            Id = Guid.CreateVersion7(),
             FirstName = firstName,
             LastName = lastName,
             Email = email,

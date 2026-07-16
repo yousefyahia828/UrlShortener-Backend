@@ -2,8 +2,6 @@ using Serilog;
 using System.Text.Json.Serialization;
 using System.Threading.RateLimiting;
 using UrlShortener.API;
-using UrlShortener.API.Common.Extensions;
-using UrlShortener.API.Common.Inftrastructure;
 using UrlShortener.Infrastructure;
 using UrlShortener.Infrastructure.Hubs;
 

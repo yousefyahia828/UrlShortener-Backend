@@ -1,5 +1,4 @@
-﻿using Josephan.CQRS;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using UrlShortener.API.Common.Abstractions.Presentation;
 using UrlShortener.API.Common.Inftrastructure;
@@ -58,6 +57,7 @@ public sealed class Endpoint : IEndpoint
                 Results.Redirect(frontendUrl + $"/reset-password.html?token={token}") :
                 Results.Redirect(frontendUrl + "/invalid-link.html?type=password");
         })
+        .WithTags(Tags.Auth)
         .WithName("PasswordResetRedirector")
         .WithSummary("Validate a password reset link.")
         .WithDescription(

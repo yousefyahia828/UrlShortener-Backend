@@ -1,5 +1,4 @@
-﻿using Josephan.CQRS;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using UrlShortener.Abstractions.Persistence;
 using UrlShortener.Domain.Users;
 
@@ -13,17 +12,17 @@ internal sealed class RequestEmailChangeCommandHandler(
         RequestEmailChangeCommand command,
         CancellationToken cancellationToken)
     {
-        return await ResultExtensions
-            .Ensure(
-                await context.Users.AnyAsync(
-                    u => u.Email == command.NewEmail,
-                    cancellationToken),
-                x => x == false,
-                UserErrors.EmailNotUnique)
-            .MapAsync(_ => context.Users
-                .FirstOrDefaultAsync(
-                    u => u.Id == command.UserId,
-                    cancellationToken))
+        if (await context.Users.AnyAsync(
+            u => u.Email == command.NewEmail,
+            cancellationToken))
+        {
+            return UserErrors.EmailNotUnique;
+        }
+
+        return await Result
+            .From(context.Users
+                .Where(u => u.Id == command.UserId)
+                .FirstOrDefaultAsync(cancellationToken))
             .EnsureNotNullAsync(UserErrors.NotFound)
             .BindAsync(u => u.RequestEmailChange(command.NewEmail))
             .TapAsync(() => context.SaveChangesAsync(cancellationToken));

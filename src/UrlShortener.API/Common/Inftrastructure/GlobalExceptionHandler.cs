@@ -18,7 +18,8 @@ public sealed class GlobalExceptionHandler(
         {
             Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1",
             Title = "An unexpected error occurred",
-            Status = StatusCodes.Status500InternalServerError
+            Detail = exception.Message,
+            Status = StatusCodes.Status500InternalServerError,
         };
 
         httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;

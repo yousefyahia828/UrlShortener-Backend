@@ -8,14 +8,14 @@ public class ShortenUrlCommandValidator :
         RuleLevelCascadeMode = CascadeMode.Stop;
 
         RuleFor(x => x.LongUrl)
-            .NotEmpty().WithMessage("URL is required")
+            .NotEmpty().WithMessage("URL is required.")
             .Must(url => Uri.TryCreate(url, UriKind.Absolute, out _))
-            .WithMessage("Invalid URL")
+            .WithMessage("Invalid URL.")
             .DependentRules(() =>
             {
                 RuleFor(x => x.Description)
                     .MaximumLength(100)
-                    .WithMessage("Description can not exceed 50 characters long");
+                    .WithMessage("Description can not exceed 100 characters long.");
             });
     }
 }
