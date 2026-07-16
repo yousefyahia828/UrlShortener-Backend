@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using UrlShortener.Abstractions.Persistence;
+using UrlShortener.API.Features.ShortenUrls.Common;
 using UrlShortener.Domain.ShortenUrls;
 
 namespace UrlShortener.API.Features.ShortenUrls.Redirect;
-
-internal sealed record UrlResponse(string LongUrl, bool Enabled);
 
 internal sealed class RedirectToLongUrlQueryHandler(
     IApplicationDbContext context,
@@ -16,7 +15,7 @@ internal sealed class RedirectToLongUrlQueryHandler(
         RedirectToLongUrlQuery query,
         CancellationToken cancellationToken)
     {
-        UrlResponse? urlResponse = await cache.GetOrCreateAsync(
+        var urlResponse = await cache.GetOrCreateAsync(
             $"shorten:{query.Code}",
             entry =>
             {
@@ -25,7 +24,7 @@ internal sealed class RedirectToLongUrlQueryHandler(
                 return context.ShortenUrls
                     .AsNoTracking()
                     .Where(url => url.Code == query.Code)
-                    .Select(url => new UrlResponse(url.LongUrl, url.Enabled))
+                    .Select(url => new CachableUrl(url.LongUrl, url.Enabled))
                     .FirstOrDefaultAsync(cancellationToken);
             });
 

@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using UrlShortener.Abstractions.Persistence;
+using UrlShortener.API.Features.ShortenUrls.Common;
 using UrlShortener.Domain.ShortenUrls;
 
 namespace UrlShortener.API.Features.ShortenUrls.Shorten;
@@ -38,7 +39,7 @@ internal sealed class ShortenUrlCommandHandler(
             {
                 cache.Set(
                     $"shorten:{shortenUrl.Code}",
-                    shortenUrl.LongUrl,
+                    new CachableUrl(shortenUrl.LongUrl, shortenUrl.Enabled),
                     new MemoryCacheEntryOptions
                     {
                         AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1)

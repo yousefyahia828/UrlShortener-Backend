@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using UrlShortener.Abstractions.Persistence;
+using UrlShortener.API.Features.ShortenUrls.Common;
 using UrlShortener.Domain.ShortenUrls;
 
 namespace UrlShortener.API.Features.ShortenUrls.Enable;
@@ -24,7 +25,7 @@ internal sealed class EnableUrlCommandHandler(
             .TapAsync(url => url.Enable())
             .TapAsync(url => cache.Set(
                 $"shorten:{url.Code}",
-                url.LongUrl,
+                new CachableUrl(url.LongUrl, url.Enabled),
                 new MemoryCacheEntryOptions
                 {
                     AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1)
