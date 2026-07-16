@@ -16,7 +16,7 @@ internal sealed class RedirectToLongUrlQueryHandler(
         RedirectToLongUrlQuery query,
         CancellationToken cancellationToken)
     {
-        var urlResponse = await cache.GetOrCreateAsync(
+        UrlResponse? urlResponse = await cache.GetOrCreateAsync(
             $"shorten:{query.Code}",
             entry =>
             {
