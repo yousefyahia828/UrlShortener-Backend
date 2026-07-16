@@ -18,7 +18,8 @@ internal sealed class JwtProvider(IOptions<JwtOptions> options) : IJwtProvider
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey)),
             SecurityAlgorithms.HmacSha256);
 
-        var expiresOnUtc = DateTime.UtcNow.AddMinutes(_jwtOptions.LifetimeInMinutes);
+        var utcNow = DateTime.UtcNow;
+        var expiresOnUtc = utcNow.AddMinutes(_jwtOptions.LifetimeInMinutes);
 
         List<Claim> claims =
         [
@@ -33,6 +34,7 @@ internal sealed class JwtProvider(IOptions<JwtOptions> options) : IJwtProvider
             Audience = _jwtOptions.Audience,
             Subject = new ClaimsIdentity(claims),
             SigningCredentials = signingCredentials,
+            NotBefore = utcNow,
             Expires = expiresOnUtc // igonre gap 
         };
 
