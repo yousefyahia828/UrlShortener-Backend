@@ -151,6 +151,12 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
+        Console.WriteLine(@$"
+            {configuration["Email:Host"]}
+            {configuration["Email:Port"]}
+            {configuration["Email:Username"]}
+            {configuration["Email:Password"]}");
+
         services
             .AddFluentEmail(
                 configuration["Email:From"],
