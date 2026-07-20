@@ -19,8 +19,8 @@ internal static class QuartzExtensions
 
                 storeOptions.UsePostgres(config =>
                 {
-                    //config.ConnectionString = configuration.GetConnectionString("DefaultConnection")!;
-                    config.ConnectionString = configuration.GetConnectionString("Local")!;
+                    config.ConnectionString = configuration.GetConnectionString("DefaultConnection")!;
+                    //config.ConnectionString = configuration.GetConnectionString("Local")!;
 
                     config.TablePrefix = "quartz.qrtz_";
                 });
