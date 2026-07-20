@@ -47,6 +47,7 @@
     <PackageReference Include="Quartz.AspNetCore" Version="3.18.2" />
     <PackageReference Include="Quartz.Extensions.Hosting" Version="3.18.2" />
     <PackageReference Include="Quartz.Serialization.Json" Version="3.18.2" />
+    <PackageReference Include="Resend" Version="0.6.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
   </ItemGroup>
 
