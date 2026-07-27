@@ -1,5 +1,4 @@
-﻿using Josephan.CQRS;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using UrlShortener.Abstractions.Persistence;
 
 namespace UrlShortener.API.Features.Users.Identity.Password.RequestPasswordReset;
@@ -26,7 +25,6 @@ internal sealed class RequestPasswordResetCommandHandler(
                 .ExecuteDeleteAsync(cancellationToken);
 
             user.RequestPasswordChange();
-            await context.SaveChangesAsync(cancellationToken);
         }
 
         return Unit.Value;

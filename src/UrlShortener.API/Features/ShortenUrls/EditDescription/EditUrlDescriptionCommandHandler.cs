@@ -18,7 +18,6 @@ internal sealed class EditUrlDescriptionCommandHandler(
                 .Where(u => u.Id == command.UrlId)
                 .FirstOrDefaultAsync(cancellationToken))
             .EnsureNotNullAsync(UrlErrors.NotFound)
-            .TapAsync(url => url.UpdateDescription(command.Description))
-            .TapAsync(_ => dbContext.SaveChangesAsync(cancellationToken));
+            .TapAsync(url => url.UpdateDescription(command.Description));
     }
 }

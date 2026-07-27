@@ -1,5 +1,4 @@
-﻿using Josephan.CQRS;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using UrlShortener.Abstractions.Persistence;
 using UrlShortener.Domain.Users;
 
@@ -17,7 +16,6 @@ internal sealed class EditUsernameCommandHandler(
             .From(context.Users
                 .FirstOrDefaultAsync(u => u.Id == command.UserId, cancellationToken))
             .EnsureNotNullAsync(UserErrors.NotFound)
-            .BindAsync(user => user.UpdateProfile(command.FirstName, command.LastName))
-            .TapAsync(() => context.SaveChangesAsync(cancellationToken));
+            .BindAsync(user => user.UpdateProfile(command.FirstName, command.LastName));
     }
 }

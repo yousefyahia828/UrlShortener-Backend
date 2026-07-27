@@ -4,9 +4,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Npgsql;
+using Resend;
 using System.Data;
 using System.Text;
 using UrlShortener.Abstractions.Authentication;
+using UrlShortener.Abstractions.Idempotency;
 using UrlShortener.Abstractions.Infrastructure;
 using UrlShortener.Abstractions.Persistence;
 using UrlShortener.Domain.ShortenUrls;
@@ -16,6 +18,7 @@ using UrlShortener.Infrastructure.Authentication.Jwt;
 using UrlShortener.Infrastructure.Authentication.RefreshToken;
 using UrlShortener.Infrastructure.Database;
 using UrlShortener.Infrastructure.Extensions;
+using UrlShortener.Infrastructure.Idempotency;
 using UrlShortener.Infrastructure.Identity.EmailVerification;
 using UrlShortener.Infrastructure.Identity.Password;
 using UrlShortener.Infrastructure.Notifications;
@@ -40,7 +43,8 @@ public static class DependencyInjection
             .AddAuthenticationInternal(configuration)
             .AddAuthorization()
             .AddQuartzWithJobs(configuration)
-            .AddFluentEmail(configuration);
+            .AddFluentEmail(configuration)
+            .AddResend(configuration);
     }
 
     private static IServiceCollection AddDatabase(
@@ -52,7 +56,7 @@ public static class DependencyInjection
 
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
+            options.UseNpgsql(configuration.GetConnectionString("Local"))
                    .AddInterceptors(
                         sp.GetRequiredService<ConvertDomainEventsToOutboxMessagesInterceptor>(),
                         sp.GetRequiredService<AuditInterceptor>())
@@ -60,6 +64,7 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }
@@ -96,7 +101,7 @@ public static class DependencyInjection
 
         services.AddScoped<IDbConnection>(sp =>
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var connectionString = configuration.GetConnectionString("Local");
 
             var connection = new NpgsqlConnection(connectionString);
 
@@ -118,6 +123,9 @@ public static class DependencyInjection
 
         // SignalR
         services.AddSignalR();
+
+        // Idemotency
+        services.AddScoped<IIdempotencyService, IdempotencyService>();
 
         return services;
     }
@@ -160,6 +168,15 @@ public static class DependencyInjection
                 port: configuration.GetValue<int>("Email:Port"),
                 username: configuration["Email:Username"],
                 password: configuration["Email:Password"]);
+
+        return services;
+    }
+
+    private static IServiceCollection AddResend(
+        this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        services.AddResend(configuration["Resend:ApiKey"]!);
 
         return services;
     }

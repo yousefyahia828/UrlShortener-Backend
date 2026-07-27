@@ -1,8 +1,9 @@
-﻿using Josephan.CQRS;
+﻿using UrlShortener.Abstractions.Idempotency;
 
 namespace UrlShortener.API.Features.ShortenUrls.Shorten;
 
 public sealed record ShortenUrlCommand(
+    Guid CommandId,
     Guid UserId,
     string LongUrl,
-    string? Description) : ICommand<string>;
+    string? Description) : IdempotentCommand<string>(CommandId);

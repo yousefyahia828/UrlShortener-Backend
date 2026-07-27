@@ -29,7 +29,6 @@ internal sealed class EnableUrlCommandHandler(
                 new MemoryCacheEntryOptions
                 {
                     AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1)
-                }))
-            .TapAsync(_ => context.SaveChangesAsync(cancellationToken));
+                }));
     }
 }

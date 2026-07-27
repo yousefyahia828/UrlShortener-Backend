@@ -24,7 +24,6 @@ internal sealed class RequestEmailChangeCommandHandler(
                 .Where(u => u.Id == command.UserId)
                 .FirstOrDefaultAsync(cancellationToken))
             .EnsureNotNullAsync(UserErrors.NotFound)
-            .BindAsync(u => u.RequestEmailChange(command.NewEmail))
-            .TapAsync(() => context.SaveChangesAsync(cancellationToken));
+            .BindAsync(u => u.RequestEmailChange(command.NewEmail));
     }
 }

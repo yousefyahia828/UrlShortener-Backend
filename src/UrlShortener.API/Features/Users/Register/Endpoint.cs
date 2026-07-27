@@ -1,6 +1,5 @@
-﻿using Josephan.CQRS;
+﻿using Microsoft.AspNetCore.Mvc;
 using UrlShortener.API.Common.Abstractions.Presentation;
-using UrlShortener.API.Common.Inftrastructure;
 
 namespace UrlShortener.API.Features.Users.Register;
 
@@ -27,9 +26,17 @@ public sealed class Endpoint : IEndpoint
 
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("auth/register", async (RegisterUserRequest request, ISender sender) =>
+        app.MapPost("auth/register", async (
+            RegisterUserRequest request,
+            [FromHeader(Name = "X-Idempotency-Key")] string idempotencyKeyHeader,
+            ISender sender) =>
         {
-            var result = await sender.Send(request.MapToCommand());
+            if (!Guid.TryParse(idempotencyKeyHeader, out Guid idempotencyKey))
+            {
+                return Results.BadRequest("Missing or invalid idempotency key header.");
+            }
+
+            var result = await sender.Send(request.MapToCommand(idempotencyKey));
 
             return result.Match(
                 value => Results.Ok(new RegisterUserResponse(value)),

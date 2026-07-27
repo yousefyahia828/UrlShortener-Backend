@@ -1,7 +1,5 @@
-﻿using Josephan.CQRS;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using UrlShortener.Abstractions.Infrastructure;
 using UrlShortener.Abstractions.Persistence;
 using UrlShortener.Domain.Users;
 using UrlShortener.Infrastructure.Users;
@@ -50,7 +48,6 @@ internal sealed class ChangeProfileImageCommandHandler(
                     image,
                     cancellationToken);
             })
-            .TapAsync(user.UpdateProfileImage)
-            .TapAsync(_ => context.SaveChangesAsync(cancellationToken));
+            .TapAsync(user.UpdateProfileImage);
     }
 }

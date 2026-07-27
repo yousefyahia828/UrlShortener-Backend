@@ -27,7 +27,6 @@ internal sealed class RegisterUserCommandHandler(
                  passwordHasher.HashPassword(command.Password),
                  DefaultImageUrl))
             .TapAsync(async user => await dbContext.Users.AddAsync(user, cancellationToken))
-            .TapAsync(_ => dbContext.SaveChangesAsync(cancellationToken))
             .MapAsync(user => user.Id);
     }
 }

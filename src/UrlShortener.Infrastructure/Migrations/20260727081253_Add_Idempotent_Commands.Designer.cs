@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using UrlShortener.Infrastructure.Database;
@@ -11,9 +12,11 @@ using UrlShortener.Infrastructure.Database;
 namespace UrlShortener.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260727081253_Add_Idempotent_Commands")]
+    partial class Add_Idempotent_Commands
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,10 +279,6 @@ namespace UrlShortener.Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTime?>("CompletedOnUtc")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("completed_on_utc");
-
                     b.Property<DateTime>("CreatedOnUtc")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_on_utc");
@@ -292,10 +291,6 @@ namespace UrlShortener.Infrastructure.Migrations
                     b.Property<string>("Response")
                         .HasColumnType("JSONB")
                         .HasColumnName("response");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer")
-                        .HasColumnName("status");
 
                     b.HasKey("Id")
                         .HasName("pk_idempotent_commands");

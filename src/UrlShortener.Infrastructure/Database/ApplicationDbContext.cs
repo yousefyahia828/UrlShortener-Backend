@@ -3,6 +3,7 @@ using UrlShortener.Abstractions.Persistence;
 using UrlShortener.Domain.ShortenUrls;
 using UrlShortener.Domain.Users;
 using UrlShortener.Domain.Users.Tokens;
+using UrlShortener.Infrastructure.Idempotency;
 using UrlShortener.Infrastructure.Outbox;
 using UrlShortener.Infrastructure.Users;
 
@@ -18,6 +19,7 @@ public sealed class ApplicationDbContext(
     public DbSet<EmailVerificationToken> EmailVerificationTokens { get; set; }
     public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
     public DbSet<OutboxMessage> OutboxMessages { get; set; }
+    public DbSet<IdempotentCommand> IdempotentCommands { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

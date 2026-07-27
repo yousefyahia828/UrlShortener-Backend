@@ -1,7 +1,10 @@
-﻿namespace UrlShortener.API.Features.Users.Register;
+﻿using UrlShortener.Abstractions.Idempotency;
+
+namespace UrlShortener.API.Features.Users.Register;
 
 public sealed record RegisterUserCommand(
+    Guid CommandId,
     string FirstName,
     string LastName,
     string Email,
-    string Password) : ICommand<Guid>;
+    string Password) : IdempotentCommand<Guid>(CommandId);

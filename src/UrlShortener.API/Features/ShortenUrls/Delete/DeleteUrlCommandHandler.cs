@@ -20,7 +20,6 @@ internal sealed class DeleteUrlCommandHandler(
                 .FirstOrDefaultAsync(cancellationToken))
             .EnsureNotNullAsync(UrlErrors.NotFound)
             .TapAsync(url => context.ShortenUrls.Remove(url))
-            .TapAsync(url => cache.Remove($"shorten:{url.Code}"))
-            .TapAsync(_ => context.SaveChangesAsync(cancellationToken));
+            .TapAsync(url => cache.Remove($"shorten:{url.Code}"));
     }
 }

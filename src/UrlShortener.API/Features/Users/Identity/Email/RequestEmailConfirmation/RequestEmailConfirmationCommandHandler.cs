@@ -1,5 +1,4 @@
-﻿using Josephan.CQRS;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using UrlShortener.Abstractions.Persistence;
 
 namespace UrlShortener.API.Features.Users.Identity.Email.RequestEmailConfirmation;
@@ -18,7 +17,6 @@ internal sealed class RequestEmailConfirmationCommandHandler(
         if (user is not null && !user.EmailConfirmed)
         {
             user.RequestEmailVerification();
-            await context.SaveChangesAsync(cancellationToken);
         }
 
         return Unit.Value;

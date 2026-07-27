@@ -3,8 +3,9 @@
 public static class Mapping
 {
     public static RegisterUserCommand MapToCommand(
-        this Endpoint.RegisterUserRequest request)
-    => new(request.FirstName,
+        this Endpoint.RegisterUserRequest request, Guid idempotencyKey)
+    => new(idempotencyKey,
+           request.FirstName,
            request.LastName,
            request.Email,
            request.Password);

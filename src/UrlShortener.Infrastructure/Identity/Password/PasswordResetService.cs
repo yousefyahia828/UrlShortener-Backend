@@ -14,7 +14,8 @@ namespace UrlShortener.Infrastructure.Identity.Password;
 internal sealed class PasswordResetService(
     ResetPasswordTokenLinkFactory linkFactory,
     IEmailSender emailSender,
-    IApplicationDbContext dbContext)
+    IApplicationDbContext dbContext,
+    IUnitOfWork unitOfWork)
     : IPasswordResetService
 {
     private static readonly Type _passwordResourceMarker = typeof(PasswordResourceMarker);
@@ -53,7 +54,7 @@ internal sealed class PasswordResetService(
         if (success)
         {
             await dbContext.PasswordResetTokens.AddAsync(token, cancellationToken);
-            await dbContext.SaveChangesAsync(cancellationToken);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
         }
     }
 

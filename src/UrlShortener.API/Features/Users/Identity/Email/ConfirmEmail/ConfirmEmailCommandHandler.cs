@@ -27,7 +27,6 @@ internal sealed class ConfirmEmailCommandHandler(
                 token => !token.User.EmailConfirmed,
                 UserErrors.EmailAlreadyConfirmed)
             .TapAsync(token => token.User.ConfirmEmail())
-            .TapAsync(token => context.EmailVerificationTokens.Remove(token))
-            .TapAsync(_ => context.SaveChangesAsync(cancellationToken));
+            .TapAsync(token => context.EmailVerificationTokens.Remove(token));
     }
 }

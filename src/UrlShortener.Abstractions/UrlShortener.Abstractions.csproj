@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Josephan.CQRS.FunctionalResults.NewtonsoftJson" Version="1.0.7" />
+    <PackageReference Include="Josephan.CQRS.FunctionalResults.SystemTextJson" Version="1.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="10.0.10" />

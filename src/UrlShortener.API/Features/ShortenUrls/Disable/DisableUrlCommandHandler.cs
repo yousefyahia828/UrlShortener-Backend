@@ -22,7 +22,6 @@ internal sealed class DisableUrlCommandHandler(
             .EnsureNotNullAsync(UrlErrors.NotFound)
             .EnsureAsync(url => url.Enabled, UrlErrors.AlreadyDisabled)
             .TapAsync(url => url.Disable())
-            .TapAsync(url => cache.Remove($"shorten:{url.Code}"))
-            .TapAsync(_ => context.SaveChangesAsync(cancellationToken));
+            .TapAsync(url => cache.Remove($"shorten:{url.Code}"));
     }
 }

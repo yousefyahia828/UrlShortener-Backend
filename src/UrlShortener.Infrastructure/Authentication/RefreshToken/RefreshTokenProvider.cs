@@ -31,7 +31,6 @@ internal sealed class RefreshTokenProvider(
         };
 
         await context.RefreshTokens.AddAsync(token);
-        await context.SaveChangesAsync();
 
         return (rawToken, token.ExpiredOnUtc);
     }
@@ -59,7 +58,6 @@ internal sealed class RefreshTokenProvider(
         refreshToken.ReplacedByTokenId = newRefreshToken.Id;
 
         await context.RefreshTokens.AddAsync(newRefreshToken);
-        await context.SaveChangesAsync();
 
         return new RotationResponse
         {
@@ -83,8 +81,6 @@ internal sealed class RefreshTokenProvider(
         }
 
         refreshToken.Revoke();
-
-        await context.SaveChangesAsync();
 
         return Unit.Value;
     }

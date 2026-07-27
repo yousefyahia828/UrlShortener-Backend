@@ -1,7 +1,5 @@
-﻿using Josephan.CQRS;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using UrlShortener.API.Common.Abstractions.Presentation;
-using UrlShortener.API.Common.Inftrastructure;
 using UrlShortener.Domain.Users;
 
 namespace UrlShortener.API.Features.ShortenUrls.Shorten;
@@ -28,12 +26,18 @@ public sealed class Endpoint : IEndpoint
     {
         app.MapPost("urls/shorten", async (
             [FromBody] ShortenUrlRequest request,
+            [FromHeader(Name = "X-Idempotency-Key")] string idempotencyKeyHeader,
             HttpContext httpContext,
             ICurrentUser currentUser,
             ISender sender,
             LinkGenerator linkGenerator) =>
         {
-            var result = await sender.Send(request.MapToCommand(currentUser.Id));
+            if (!Guid.TryParse(idempotencyKeyHeader, out Guid idempotencyKey))
+            {
+                return Results.BadRequest("Missing or invalid idempotency key header.");
+            }
+
+            var result = await sender.Send(request.MapToCommand(currentUser.Id, idempotencyKey));
 
             return result.Match(
                 code =>

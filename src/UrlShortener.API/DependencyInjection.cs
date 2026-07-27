@@ -17,6 +17,8 @@ public static class DependencyInjection
                 assembly,
                 InfrastructureAssemblyReference.Assembly);
 
+            options.AddCommandBehavior(typeof(UnitOfWorkBehavior<,>));
+            options.AddCommandBehavior(typeof(IdempotencyBehavior<,>));
             options.AddCommandBehavior(typeof(CommandLoggingBehavior<,>));
             options.AddQueryBehavior(typeof(QueryLoggingBehavior<,>));
             options.AddCommandBehavior(typeof(ValidationBehavior<,>));

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using System.Security.Cryptography;
 using System.Text;
-using UrlShortener.Abstractions.Persistence;
 using UrlShortener.API.Features.ShortenUrls.Common;
 using UrlShortener.Domain.ShortenUrls;
 
@@ -9,7 +8,6 @@ namespace UrlShortener.API.Features.ShortenUrls.Shorten;
 
 internal sealed class ShortenUrlCommandHandler(
     IShortenUrlRepository repository,
-    IApplicationDbContext context,
     IMemoryCache cache)
     : ICommandHandler<ShortenUrlCommand, string>
 {
@@ -22,6 +20,8 @@ internal sealed class ShortenUrlCommandHandler(
         ShortenUrlCommand command,
         CancellationToken cancellationToken)
     {
+        await Task.Delay(5000, cancellationToken);
+
         for (int i = 0; i < MaxRetries; i++)
         {
             string code = GenerateRandomCode(CodeLength);
@@ -45,7 +45,6 @@ internal sealed class ShortenUrlCommandHandler(
                         AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1)
                     });
 
-                await context.SaveChangesAsync(cancellationToken);
                 return shortenUrl.Code;
             }
         }

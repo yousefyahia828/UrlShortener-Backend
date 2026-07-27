@@ -1,5 +1,4 @@
-﻿using Josephan.CQRS;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using UrlShortener.Abstractions.Persistence;
 using UrlShortener.Domain.Users;
 
@@ -18,7 +17,6 @@ internal sealed class CancelEmailChangeCommandHandler(
                 u => u.Id == command.UserId,
                 cancellationToken))
             .EnsureNotNullAsync(UserErrors.NotFound)
-            .BindAsync(u => u.CancelChangeEmailRequest())
-            .TapAsync(() => context.SaveChangesAsync(cancellationToken));
+            .BindAsync(u => u.CancelChangeEmailRequest());
     }
 }

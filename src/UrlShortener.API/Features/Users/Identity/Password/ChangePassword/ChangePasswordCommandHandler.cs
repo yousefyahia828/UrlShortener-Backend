@@ -1,6 +1,4 @@
-﻿using Josephan.CQRS;
-using Microsoft.EntityFrameworkCore;
-using UrlShortener.Abstractions.Authentication;
+﻿using Microsoft.EntityFrameworkCore;
 using UrlShortener.Abstractions.Authentication.DTOs;
 using UrlShortener.Abstractions.Persistence;
 using UrlShortener.Domain.Users;
@@ -56,8 +54,6 @@ internal sealed class ChangePasswordCommandHandler(
                     .Where(t => t.ExpiredOnUtc > DateTime.UtcNow)
                     .ExecuteDeleteAsync(cancellationToken);
             }
-
-            await context.SaveChangesAsync(cancellationToken);
         }
 
         return result;

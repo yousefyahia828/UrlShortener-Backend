@@ -1,3 +1,4 @@
+using Josephan.CQRS.FunctionalResults.SystemTextJson;
 using Serilog;
 using System.Text.Json.Serialization;
 using System.Threading.RateLimiting;
@@ -16,6 +17,7 @@ builder.Services.AddSwaggerGenWithAuth();
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
     options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    options.SerializerOptions.AddJosephanFunctionalResults();
 });
 
 builder.Services.AddProblemDetails();
@@ -27,7 +29,7 @@ builder.Services
 
 builder.Services.AddEndpoints();
 
-builder.Services.AddCors();
+//builder.Services.AddCors();
 
 builder.Services.AddRateLimiter(options =>
 {
@@ -55,17 +57,17 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors(cfg =>
-{
-    cfg.AllowAnyHeader()
-       .AllowAnyMethod()
-       .WithOrigins(
-            "http://127.0.0.1:5500",
-            "https://localhost:5500",
-            "https://url-shortener-frontend-nu-beryl.vercel.app")
-       .AllowCredentials()
-       .SetPreflightMaxAge(TimeSpan.FromHours(1));
-});
+//app.UseCors(cfg =>
+//{
+//    cfg.AllowAnyHeader()
+//       .AllowAnyMethod()
+//       .WithOrigins(
+//            "http://localhsot:5000",
+//            "https://localhsot:5001",
+//            "https://url-shortener-frontend-nu-beryl.vercel.app")
+//       .AllowCredentials()
+//       .SetPreflightMaxAge(TimeSpan.FromHours(1));
+//});
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -73,6 +75,8 @@ app.UseAuthorization();
 app.UseStaticFiles();
 app.UseExceptionHandler();
 app.UseRateLimiter();
+
+app.UseSerilogRequestLogging();
 
 app.MapEndpoints(app.MapGroup("api"));
 app.MapHub<RegistrationNotificationHub>("/hubs/registration");
