@@ -1,9 +1,8 @@
-﻿using Josephan.CQRS;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using UrlShortener.Abstractions.Persistence;
 using UrlShortener.Domain.Users;
 
-namespace UrlShortener.API.Features.Users.GetMyProrile;
+namespace UrlShortener.API.Features.Users.GetMyProfile;
 
 internal sealed class GetMyProfileQueryHandler(
     IApplicationDbContext context)

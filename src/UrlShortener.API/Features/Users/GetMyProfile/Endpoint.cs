@@ -1,9 +1,7 @@
-﻿using Josephan.CQRS;
-using UrlShortener.API.Common.Abstractions.Presentation;
-using UrlShortener.API.Common.Inftrastructure;
+﻿using UrlShortener.API.Common.Abstractions.Presentation;
 using UrlShortener.Domain.Users;
 
-namespace UrlShortener.API.Features.Users.GetMyProrile;
+namespace UrlShortener.API.Features.Users.GetMyProfile;
 
 public sealed class Endpoint : IEndpoint
 {

@@ -1,4 +1,4 @@
-﻿namespace UrlShortener.API.Features.Users.GetMyProrile;
+﻿namespace UrlShortener.API.Features.Users.GetMyProfile;
 
 public sealed record UserProfileResponse
 {
