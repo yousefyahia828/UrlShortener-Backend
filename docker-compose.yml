@@ -1,0 +1,28 @@
+services:
+  urlshortener.api:
+    image: ${DOCKER_REGISTRY-}urlshortenerapi
+    build:
+      context: .
+      dockerfile: src/UrlShortener.API/Dockerfile
+    ports:
+     - 5000:8080
+     - 5001:8081
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - default
+
+  urlshortener.seq:
+    image: datalust/seq:latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_NOAUTHENTICATION=true
+    ports:
+     - 5341:5341
+     - 8081:80
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge

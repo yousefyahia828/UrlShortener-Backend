@@ -1,4 +1,9 @@
 <Solution>
+  <Folder Name="/compose/">
+    <Project Path="docker-compose.dcproj">
+      <Build />
+    </Project>
+  </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
   </Folder>
