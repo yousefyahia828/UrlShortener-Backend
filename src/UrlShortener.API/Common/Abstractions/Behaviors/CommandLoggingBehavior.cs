@@ -1,8 +1,4 @@
-﻿using Josephan.CQRS;
-using Microsoft.Extensions.Logging;
-using Serilog.Context;
-
-namespace UrlShortener.API.Common.Abstractions.Behaviors;
+﻿namespace UrlShortener.API.Common.Abstractions.Behaviors;
 
 internal sealed class CommandLoggingBehavior<TCommand, TResposne>(
     ILogger<CommandLoggingBehavior<TCommand, TResposne>> logger)
@@ -17,7 +13,6 @@ internal sealed class CommandLoggingBehavior<TCommand, TResposne>(
     {
         var commandName = typeof(TCommand).Name;
 
-
         logger.LogInformation("Processing command {Command}", commandName);
 
         var result = await next(request, cancellationToken);
@@ -28,10 +23,10 @@ internal sealed class CommandLoggingBehavior<TCommand, TResposne>(
         }
         else
         {
-            using (LogContext.PushProperty("Errors", result.Errors, true))
-            {
-                logger.LogError("Completed command {Command} with errors", commandName);
-            }
+            logger.LogError(
+                "Completed command {Command} with errors {@Errors}",
+                commandName,
+                result.Errors);
         }
 
         return result;

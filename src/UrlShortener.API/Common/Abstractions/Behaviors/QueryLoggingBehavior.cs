@@ -1,8 +1,4 @@
-﻿using Josephan.CQRS;
-using Microsoft.Extensions.Logging;
-using Serilog.Context;
-
-namespace UrlShortener.API.Common.Abstractions.Behaviors;
+﻿namespace UrlShortener.API.Common.Abstractions.Behaviors;
 
 internal sealed class QueryLoggingBehavior<TQuery, TResponse>(
     ILogger<QueryLoggingBehavior<TQuery, TResponse>> logger)
@@ -27,10 +23,10 @@ internal sealed class QueryLoggingBehavior<TQuery, TResponse>(
         }
         else
         {
-            using (LogContext.PushProperty("Errors", result.Errors, true))
-            {
-                logger.LogError("Completed query {Query} with errors", queryName);
-            }
+            logger.LogError(
+                "Completed query {Query} with errors {@Errors}",
+                queryName,
+                result.Errors);
         }
 
         return result;
