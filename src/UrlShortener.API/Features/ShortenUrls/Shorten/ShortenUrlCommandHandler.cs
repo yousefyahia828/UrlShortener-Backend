@@ -20,8 +20,6 @@ internal sealed class ShortenUrlCommandHandler(
         ShortenUrlCommand command,
         CancellationToken cancellationToken)
     {
-        await Task.Delay(5000, cancellationToken);
-
         for (int i = 0; i < MaxRetries; i++)
         {
             string code = GenerateRandomCode(CodeLength);

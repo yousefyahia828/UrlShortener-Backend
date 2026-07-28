@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UrlShortener.Abstractions.Authentication.DTOs;
-using UrlShortener.Domain.Users;
 using UrlShortener.Infrastructure.Database;
 
 namespace UrlShortener.API.Features.Users.Identity.Email.ConfirmEmailChange;
@@ -23,9 +22,6 @@ internal sealed class ConfirmEmailChangeCommandHandler(
            .EnsureAsync(
                t => !t.IsExpired && t.User is not null,
                AuthErrors.InvalidToken)
-           .EnsureAsync(
-               token => !token.User.EmailConfirmed,
-               UserErrors.EmailAlreadyConfirmed)
            .TapAsync(token => token.User.ConfirmEmailChange())
            .TapAsync(token => context.EmailVerificationTokens.Remove(token));
     }

@@ -29,7 +29,7 @@ builder.Services
 
 builder.Services.AddEndpoints();
 
-//builder.Services.AddCors();
+builder.Services.AddCors();
 
 builder.Services.AddRateLimiter(options =>
 {
@@ -57,17 +57,17 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//app.UseCors(cfg =>
-//{
-//    cfg.AllowAnyHeader()
-//       .AllowAnyMethod()
-//       .WithOrigins(
-//            "http://localhsot:5000",
-//            "https://localhsot:5001",
-//            "https://url-shortener-frontend-nu-beryl.vercel.app")
-//       .AllowCredentials()
-//       .SetPreflightMaxAge(TimeSpan.FromHours(1));
-//});
+app.UseCors(cfg =>
+{
+    cfg.AllowAnyHeader()
+       .AllowAnyMethod()
+       .WithOrigins(
+            "http://127.0.0.1:5500",
+            "http://127.0.0.1:58972",
+            "https://url-shortener-frontend-nu-beryl.vercel.app")
+       .AllowCredentials()
+       .SetPreflightMaxAge(TimeSpan.FromHours(1));
+});
 
 app.UseAuthentication();
 app.UseAuthorization();
