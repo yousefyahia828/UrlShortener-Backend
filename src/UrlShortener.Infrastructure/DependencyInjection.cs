@@ -159,6 +159,7 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
+        // Development only free smtp
         services
             .AddFluentEmail(
                 configuration["Email:From"],
@@ -176,6 +177,7 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
+        // Needs verified domain to function .... No money $$$ ...
         services.AddResend(configuration["Resend:ApiKey"]!);
 
         return services;
