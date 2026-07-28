@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using UrlShortener.Abstractions.Persistence;
 using UrlShortener.Domain.Users;
+using UrlShortener.Infrastructure.Database;
 using UrlShortener.Infrastructure.Users;
 
 namespace UrlShortener.API.Features.Users.ChangeProfileImage;
 
 internal sealed class ChangeProfileImageCommandHandler(
-    IApplicationDbContext context,
+    ApplicationDbContext context,
     IOptionsSnapshot<ProfileImageOptions> profileImageOptions,
     ILocalStorage localStorage,
     IWebHostEnvironment env)

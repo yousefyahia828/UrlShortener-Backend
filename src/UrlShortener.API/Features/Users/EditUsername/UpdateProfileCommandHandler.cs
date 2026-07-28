@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UrlShortener.Abstractions.Persistence;
 using UrlShortener.Domain.Users;
+using UrlShortener.Infrastructure.Database;
 
 namespace UrlShortener.API.Features.Users.EditUsername;
 
 internal sealed class EditUsernameCommandHandler(
-    IApplicationDbContext context)
+    ApplicationDbContext context)
     : ICommandHandler<EditUsernameCommand>
 {
     public async Task<Result> Handle(

@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UrlShortener.Abstractions.Authentication.DTOs;
-using UrlShortener.Abstractions.Persistence;
 using UrlShortener.Domain.Users;
+using UrlShortener.Infrastructure.Database;
 
 namespace UrlShortener.API.Features.Users.Identity.Email.ConfirmEmailChange;
 
 internal sealed class ConfirmEmailChangeCommandHandler(
-    IApplicationDbContext context)
+    ApplicationDbContext context)
     : ICommandHandler<ConfirmEmailChangeCommand>
 {
     public async Task<Result> Handle(

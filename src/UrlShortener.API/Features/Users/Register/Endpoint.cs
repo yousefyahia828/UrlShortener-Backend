@@ -27,7 +27,7 @@ public sealed class Endpoint : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPost("auth/register", async (
-            RegisterUserRequest request,
+            [FromBody] RegisterUserRequest request,
             [FromHeader(Name = "X-Idempotency-Key")] string idempotencyKeyHeader,
             ISender sender) =>
         {

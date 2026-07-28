@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UrlShortener.Abstractions.Persistence;
 using UrlShortener.Domain.Users;
+using UrlShortener.Infrastructure.Database;
 
 namespace UrlShortener.API.Features.Users.Identity.Email.CancelEmailChange;
 
 internal sealed class CancelEmailChangeCommandHandler(
-    IApplicationDbContext context)
+    ApplicationDbContext context)
     : ICommandHandler<CancelEmailChangeCommand>
 {
     public async Task<Result> Handle(

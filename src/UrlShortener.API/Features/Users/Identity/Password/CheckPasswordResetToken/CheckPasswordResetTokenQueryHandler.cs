@@ -1,12 +1,10 @@
-﻿using Josephan.CQRS;
-using Microsoft.EntityFrameworkCore;
-using UrlShortener.Abstractions.Authentication;
-using UrlShortener.Abstractions.Persistence;
+﻿using Microsoft.EntityFrameworkCore;
+using UrlShortener.Infrastructure.Database;
 
 namespace UrlShortener.API.Features.Users.Identity.Password.CheckPasswordResetToken;
 
 internal sealed class CheckPasswordResetTokenQueryHandler(
-    IApplicationDbContext dbContext,
+    ApplicationDbContext dbContext,
     IPasswordResetService passwordResetService)
     : IQueryHandler<CheckPasswordResetTokenQuery, bool>
 {

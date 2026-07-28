@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
-using UrlShortener.Abstractions.Persistence;
 using UrlShortener.Domain.ShortenUrls;
+using UrlShortener.Infrastructure.Database;
 
 namespace UrlShortener.API.Features.ShortenUrls.Disable;
 
 internal sealed class DisableUrlCommandHandler(
-    IApplicationDbContext context,
+    ApplicationDbContext context,
     IMemoryCache cache)
     : ICommandHandler<DisableUrlCommand>
 {

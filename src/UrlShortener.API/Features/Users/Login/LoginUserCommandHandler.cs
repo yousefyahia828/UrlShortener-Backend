@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UrlShortener.Abstractions.Authentication.DTOs;
-using UrlShortener.Abstractions.Persistence;
+using UrlShortener.Infrastructure.Database;
 
 namespace UrlShortener.API.Features.Users.Login;
 
 internal sealed class LoginUserCommandHandler(
-    IApplicationDbContext dbContext,
+    ApplicationDbContext dbContext,
     IPasswordHasher passwordHasher,
     IJwtProvider jwtProvider,
     IRefreshTokenProvider refreshTokenProvider)

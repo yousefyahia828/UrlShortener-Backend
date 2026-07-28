@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UrlShortener.Abstractions.Authentication.DTOs;
-using UrlShortener.Abstractions.Persistence;
 using UrlShortener.Domain.Users;
+using UrlShortener.Infrastructure.Database;
 
 namespace UrlShortener.API.Features.Users.Identity.Password.ChangePassword;
 
 internal sealed class ChangePasswordCommandHandler(
-    IApplicationDbContext context,
+    ApplicationDbContext context,
     IRefreshTokenProvider refreshTokenProvider,
     IPasswordHasher passwordHasher)
     : ICommandHandler<ChangePasswordCommand>

@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UrlShortener.Abstractions.Persistence;
 using UrlShortener.Domain.ShortenUrls;
+using UrlShortener.Infrastructure.Database;
 
 namespace UrlShortener.API.Features.ShortenUrls.EditDescription;
 
 internal sealed class EditUrlDescriptionCommandHandler(
-    IApplicationDbContext dbContext)
+    ApplicationDbContext dbContext)
     : ICommandHandler<EditUrlDescriptionCommand>
 {
     public async Task<Result> Handle(

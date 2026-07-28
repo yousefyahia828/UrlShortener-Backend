@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UrlShortener.Abstractions.Authentication.DTOs;
-using UrlShortener.Abstractions.Persistence;
 using UrlShortener.Domain.Users;
+using UrlShortener.Infrastructure.Database;
 
 namespace UrlShortener.API.Features.Users.Identity.Password.ConfirmPasswordReset;
 
 internal sealed class ConfirmPasswordResetCommandHandler(
     IPasswordResetService passwordResetService,
-    IApplicationDbContext context,
+    ApplicationDbContext context,
     IPasswordHasher passwordHasher)
     : ICommandHandler<ConfirmPasswordResetCommand>
 {

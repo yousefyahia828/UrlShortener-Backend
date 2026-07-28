@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UrlShortener.Abstractions.Persistence;
+using UrlShortener.Infrastructure.Database;
 
 namespace UrlShortener.API.Features.Users.Identity.Password.RequestPasswordReset;
 
 internal sealed class RequestPasswordResetCommandHandler(
-    IApplicationDbContext context)
+    ApplicationDbContext context)
     : ICommandHandler<RequestPasswordResetCommand>
 {
     public async Task<Result> Handle(

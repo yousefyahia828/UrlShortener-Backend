@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UrlShortener.Abstractions.Persistence;
 using UrlShortener.Domain.Users;
+using UrlShortener.Infrastructure.Database;
 
 namespace UrlShortener.API.Features.Users.Register;
 
 internal sealed class RegisterUserCommandHandler(
-    IApplicationDbContext dbContext,
+    ApplicationDbContext dbContext,
     IPasswordHasher passwordHasher)
     : ICommandHandler<RegisterUserCommand, Guid>
 {
