@@ -28,6 +28,8 @@ internal sealed class ConvertDomainEventsToOutboxMessagesInterceptor
 
     private static void PersistOutboxMessages(DbContext context)
     {
+        var utcNow = DateTime.UtcNow;
+
         var outboxMessages = context.ChangeTracker
             .Entries<IHasDomainEvents>()
             .Select(entry => entry.Entity)
@@ -44,7 +46,7 @@ internal sealed class ConvertDomainEventsToOutboxMessagesInterceptor
                 Id = Guid.CreateVersion7(),
                 Type = @event.GetType().Name,
                 Payload = JsonConvert.SerializeObject(@event, Formatting.None, _settings),
-                CreatedOnUtc = DateTime.UtcNow,
+                CreatedOnUtc = utcNow,
             })
             .ToArray();
 
